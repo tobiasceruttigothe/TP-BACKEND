@@ -1,3 +1,6 @@
+# ===============================
+# Maven build artifacts
+# ===============================
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -7,11 +10,53 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
-# https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
 
-# Eclipse m2e generated files
-# Eclipse Core
+# ===============================
+# IntelliJ IDEA
+# ===============================
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# ===============================
+# Eclipse (por si alguien usa)
+# ===============================
 .project
-# JDT-specific (Eclipse Java Development Tools)
 .classpath
+
+# ===============================
+# VSCode
+# ===============================
+.vscode/
+
+# ===============================
+# Sistema operativo
+# ===============================
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ===============================
+# Archivos temporales
+# ===============================
+*.swp
+*.swo
+*.bak
+*.tmp
+*.log
+*.orig
+
+# ===============================
+# Archivos de configuración sensibles
+# ===============================
+*.env
+.env.*
+!env.template
+
+# ===============================
+# Otros directorios comunes
+# ===============================
+/out/
