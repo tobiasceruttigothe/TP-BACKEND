@@ -15,8 +15,10 @@ public class Posicion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "id_vehiculo", nullable = false)
-    private int id_vehiculo;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_vehiculo", nullable = false)
+    private Vehiculo vehiculo;
+
 
     @Column(name = "fecha_hora", nullable = false)
     private LocalDateTime fecha_hora;

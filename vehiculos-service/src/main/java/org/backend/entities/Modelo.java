@@ -14,8 +14,10 @@ public class Modelo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "id_marca", nullable = false)
-    private int id_marca;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_marca", nullable = false)
+    private Marca marca;
+
 
     @Column(name = "descripcion", nullable = false)
     private String descripcion;
