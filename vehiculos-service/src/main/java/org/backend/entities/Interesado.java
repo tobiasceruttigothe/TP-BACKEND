@@ -35,8 +35,8 @@ public class Interesado {
     private boolean restringido;
 
     @Column(name = "nro_licencia", nullable = false)
-    private int nro_licencia;
+    private int nroLicencia;
 
     @Column(name = "fecha_vencimiento_licencia", nullable = false)
-    private LocalDateTime fecha_venicimiento_licencia;
+    private LocalDateTime fechaVenicimientoLicencia;
 }

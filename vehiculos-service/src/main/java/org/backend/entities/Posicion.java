@@ -21,7 +21,7 @@ public class Posicion {
 
 
     @Column(name = "fecha_hora", nullable = false)
-    private LocalDateTime fecha_hora;
+    private LocalDateTime fechaHora;
 
     @Column(name = "latitud", nullable = false)
     private double latitud;
