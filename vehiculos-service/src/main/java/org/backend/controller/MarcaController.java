@@ -19,7 +19,8 @@ public class MarcaController {
 
     @GetMapping
     public List<Marca> getAllMarcas() {
-        return (List<Marca>) marcaRepository.findAll();
+        List<Marca> marcas = marcaRepository.findAll();
+        return marcas;
     }
 
 }
