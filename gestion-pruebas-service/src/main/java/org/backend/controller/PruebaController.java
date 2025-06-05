@@ -31,14 +31,14 @@ public class PruebaController {
         return ResponseEntity.ok(savedPrueba);
     }
 
-    /*@PatchMapping("/{id}")
-    public ResponseEntity<Prueba> updatePrueba(@PathVariable Long id) {
+    @PatchMapping("/{id}")
+    public ResponseEntity<Prueba> finalizarPrueba(@PathVariable Long id, @RequestBody String comentario) {
         Prueba existingPrueba = pruebaService.getPruebaById(id);
         if (existingPrueba == null) {
             return ResponseEntity.notFound().build();
         }
-        pruebaService.
+        return ResponseEntity.ok(pruebaService.finalizarPrueba(id, comentario));
     }
 
-     */
+
 }
