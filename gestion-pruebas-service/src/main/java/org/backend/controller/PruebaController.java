@@ -25,20 +25,26 @@ public class PruebaController {
         return ResponseEntity.ok(pruebas);
     }
 
-    @PostMapping("/add")
+    @GetMapping("/activas")
+    public ResponseEntity<List<Prueba>> getPruebasActivas() {
+        List<Prueba> pruebasActivas = pruebaService.getPruebasActivas();
+        return ResponseEntity.ok(pruebasActivas);
+    }
+
+    @PostMapping("/nueva-prueba")
     public ResponseEntity<Prueba> addPrueba(PruebaCreateDTO prueba) {
         Prueba savedPrueba = pruebaService.savePrueba(prueba);
         return ResponseEntity.ok(savedPrueba);
     }
 
-    /*@PatchMapping("/{id}")
-    public ResponseEntity<Prueba> updatePrueba(@PathVariable Long id) {
+    @PatchMapping("/finaliza/{id}")
+    public ResponseEntity<Prueba> finalizarPrueba(@PathVariable Long id, @RequestBody String comentario) {
         Prueba existingPrueba = pruebaService.getPruebaById(id);
         if (existingPrueba == null) {
             return ResponseEntity.notFound().build();
         }
-        pruebaService.
+        return ResponseEntity.ok(pruebaService.finalizarPrueba(id, comentario));
     }
 
-     */
+
 }

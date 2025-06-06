@@ -69,12 +69,13 @@ public class PruebaService {
         return prueba;
     }
 
-    public Prueba finalizarPrueba(Long id) {
+    public Prueba finalizarPrueba(Long id, String comentario) {
         Prueba prueba = getPruebaById(id);
         if (prueba != null) {
             prueba.setFechaHoraFin(LocalDateTime.now());
+            prueba.setComentarios(comentario);
             return pruebaRepository.save(prueba);
         }
-        return null;
+        return pruebaRepository.findById(id).orElse(null);
     }
 }
