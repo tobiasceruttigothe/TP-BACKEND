@@ -17,26 +17,27 @@ import lombok.NoArgsConstructor;
 public class Interesado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private int id;
 
-    @Column(name = "tipo_documento", nullable = false)
+    @Column(name = "TIPO_DOCUMENTO", nullable = false)
     private String tipo_documento;
 
-    @Column(name = "documento", nullable = false)
+    @Column(name = "DOCUMENTO", nullable = false)
     private String documento;
 
-    @Column(name = "nombre", nullable = false)
+    @Column(name = "NOMBRE", nullable = false)
     private String nombre;
 
-    @Column(name = "apellido", nullable = false)
+    @Column(name = "APELLIDO", nullable = false)
     private String apellido;
 
-    @Column(name = "restringido", nullable = false)
+    @Column(name = "RESTRINGIDO", nullable = false)
     private boolean restringido;
 
-    @Column(name = "nro_licencia", nullable = false)
+    @Column(name = "NRO_LICENCIA", nullable = false)
     private int nroLicencia;
 
-    @Column(name = "fecha_vencimiento_licencia", nullable = false)
+    @Column(name = "FECHA_VENCIMIENTO_LICENCIA", nullable = false)
     private LocalDateTime fechaVenicimientoLicencia;
 }

@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class Posicion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -20,13 +21,13 @@ public class Posicion {
     private Vehiculo vehiculo;
 
 
-    @Column(name = "fecha_hora", nullable = false)
+    @Column(name = "FECHA_HORA", nullable = false)
     private LocalDateTime fechaHora;
 
-    @Column(name = "latitud", nullable = false)
+    @Column(name = "LATITUD", nullable = false)
     private double latitud;
 
-    @Column(name = "longitud", nullable = false)
+    @Column(name = "LONGITUD", nullable = false)
     private double longitud;
 
 }

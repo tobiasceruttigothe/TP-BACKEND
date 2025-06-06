@@ -12,13 +12,14 @@ import lombok.NoArgsConstructor;
 public class Modelo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_marca", nullable = false)
+    @JoinColumn(name = "ID_MARCA", nullable = false)
     private Marca marca;
 
 
-    @Column(name = "descripcion", nullable = false)
+    @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
 }
