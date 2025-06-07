@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 public class Prueba {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private int ID;
 
     @Column(name = "FECHA_HORA_INICIO", nullable = false)
@@ -26,7 +27,7 @@ public class Prueba {
     private String comentarios;
 
     @ManyToOne
-    @JoinColumn(name = "ID_VEHICULO", nullable = false)
+    @JoinColumn(name = "id_vehiculo", nullable = false)
     private Vehiculo vehiculo;
 
    /* Esto lo dejamos comentado porque no es necesario para el microservicio de reportes?
@@ -35,7 +36,7 @@ public class Prueba {
     private Interesado interesado; */
 
     @ManyToOne
-    @JoinColumn(name = "ID_EMPLEADO", nullable = false)
+    @JoinColumn(name = "id_empleado", nullable = false)
     private Empleado empleado;
 
 }

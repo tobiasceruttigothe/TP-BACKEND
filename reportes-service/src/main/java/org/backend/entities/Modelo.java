@@ -3,26 +3,23 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-//id patente id_modelo
-@Entity(name = "Vehiculos")
+
+@Entity(name = "Modelos")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
-public class Vehiculo {
+
+public class Modelo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private int id;
 
-    @Column(name = "PATENTE", nullable = false)
-    private String patente;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_modelo", nullable = false)
-    private Modelo modelo;
+    @JoinColumn(name = "ID_MARCA", nullable = false)
+    private Marca marca;
 
 
-    @Column(name = "ANIO", nullable = false)
-    private int anio;
-
+    @Column(name = "DESCRIPCION", nullable = false)
+    private String descripcion;
 }
