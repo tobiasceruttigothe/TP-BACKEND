@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -15,20 +16,27 @@ import java.util.Date;
 public class Interesado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "ID")
     private int id;
-    @Column(name = "tipo_documento")
-    private String tipoDoc;
-    @Column(name = "documento")
+
+    @Column(name = "TIPO_DOCUMENTO", nullable = false)
+    private String tipo_documento;
+
+    @Column(name = "DOCUMENTO", nullable = false)
     private String documento;
-    @Column(name = "nombre")
+
+    @Column(name = "NOMBRE", nullable = false)
     private String nombre;
-    @Column(name = "apellido")
+
+    @Column(name = "APELLIDO", nullable = false)
     private String apellido;
-    @Column(name = "restringido")
+
+    @Column(name = "RESTRINGIDO", nullable = false)
     private int restringido;
-    @Column(name = "numero_licencia")
+
+    @Column(name = "NRO_LICENCIA", nullable = false)
     private int nroLicencia;
-    @Column(name = "fecha_vencimiento_licencia")
-    private LocalDate fechaVencimientoLicencia;
+
+    @Column(name = "FECHA_VENCIMIENTO_LICENCIA", nullable = false)
+    private LocalDate fechaVenicimientoLicencia;
 }

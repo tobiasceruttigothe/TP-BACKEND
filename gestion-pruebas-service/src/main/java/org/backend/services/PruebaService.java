@@ -59,7 +59,7 @@ public class PruebaService {
             if (p.getEmpleado().getLegajo() == (prueba.getEmpleado().getLegajo())) {
                 throw new IllegalArgumentException("El empleado ya tiene una prueba activa");
             }
-            if (prueba.getInteresado().getFechaVencimientoLicencia().isBefore(LocalDate.now())) {
+            if (prueba.getInteresado().getFechaVenicimientoLicencia().isBefore(LocalDate.now())) {
                 throw new IllegalArgumentException("El interesado no tiene licencia vigente");
             }
             if (prueba.getInteresado().getRestringido() != 0) {
