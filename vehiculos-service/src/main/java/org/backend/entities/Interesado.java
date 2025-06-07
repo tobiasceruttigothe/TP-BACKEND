@@ -33,7 +33,7 @@ public class Interesado {
     private String apellido;
 
     @Column(name = "RESTRINGIDO", nullable = false)
-    private boolean restringido;
+    private int restringido;
 
     @Column(name = "NRO_LICENCIA", nullable = false)
     private int nroLicencia;
