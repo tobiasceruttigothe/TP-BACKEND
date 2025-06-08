@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class Modelo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)

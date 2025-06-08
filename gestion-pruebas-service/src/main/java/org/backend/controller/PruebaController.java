@@ -31,7 +31,7 @@ public class PruebaController {
         return ResponseEntity.ok(pruebasActivas);
     }
 
-    @PostMapping("/nueva-prueba")
+    @PostMapping("/crear")
     public ResponseEntity<Prueba> addPrueba(PruebaCreateDTO prueba) {
         Prueba savedPrueba = pruebaService.savePrueba(prueba);
         return ResponseEntity.ok(savedPrueba);

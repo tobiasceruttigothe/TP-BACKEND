@@ -9,11 +9,12 @@ import java.time.LocalDateTime;
 @Entity(name = "Pruebas")
 @Data
 @AllArgsConstructor
-@NoArgsConstructor(force = true)
+@NoArgsConstructor
 public class Prueba {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ID;
+    @Column(name = "ID", nullable = false)
+    private int id;
 
     @Column(name = "FECHA_HORA_INICIO", nullable = false)
     private LocalDateTime fechaHoraInicio;
@@ -35,13 +36,4 @@ public class Prueba {
     @ManyToOne
     @JoinColumn(name = "ID_EMPLEADO", nullable = false)
     private Empleado empleado;
-
-
-
-
-
-
-
-
-
 }

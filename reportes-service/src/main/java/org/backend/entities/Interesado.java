@@ -1,20 +1,15 @@
 package org.backend.entities;
-// id, tipo_documento, documento, nombre, apellido, restringido, nro_licencia, fecha_venicimiento_licencia
 
 import jakarta.persistence.*;
-
+import lombok.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+@Entity
 
-@Entity(name = "Interesados")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
-
+@Table(name = "Interesados")
 public class Interesado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
