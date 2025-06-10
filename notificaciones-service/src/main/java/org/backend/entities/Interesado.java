@@ -16,7 +16,7 @@ public class Interesado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private int id;
+    private long id;
     @Column(name = "TIPO_DOCUMENTO")
     private String tipoDoc;
     @Column(name = "DOCUMENTO")

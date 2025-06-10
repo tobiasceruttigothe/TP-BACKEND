@@ -9,6 +9,8 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "notificaciones")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Notificacion {
 
     @Id
@@ -34,17 +36,6 @@ public class Notificacion {
     @JoinColumn(name = "ID_VEHICULO", nullable = false)
     private Vehiculo vehiculo;
 
-    public Notificacion(Empleado empleado, String comentario, Interesado interesado, Vehiculo vehiculo) {
-        this.empleado = empleado;
-        this.fecha = LocalDate.now();
-        this.comentario = comentario;
-        this.interesado = interesado;
-        this.vehiculo = vehiculo;
-    }
-
-    public Notificacion() {
-
-    }
 }
 
 
