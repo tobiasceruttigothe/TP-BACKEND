@@ -11,17 +11,18 @@ import lombok.NoArgsConstructor;
 public class Vehiculo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private int id;
 
-    @Column(name = "patente", nullable = false)
+    @Column(name = "PATENTE", nullable = false)
     private String patente;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_modelo", nullable = false)
+    @ManyToOne//(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_MODELO", nullable = false)
     private Modelo modelo;
 
 
-    @Column(name = "anio", nullable = false)
+    @Column(name = "ANIO", nullable = false)
     private int anio;
 
 }

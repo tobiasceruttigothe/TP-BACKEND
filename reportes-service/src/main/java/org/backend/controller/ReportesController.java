@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/reportes")
+@RequestMapping("/api/reportes")
 public class ReportesController {
 
     //revisar si es necesario el repository de empleado y los @Autowired

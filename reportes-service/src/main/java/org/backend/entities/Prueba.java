@@ -27,16 +27,19 @@ public class Prueba {
     private String comentarios;
 
     @ManyToOne
-    @JoinColumn(name = "id_vehiculo", nullable = false)
+    @JoinColumn(name = "ID_VEHICULO", nullable = false)
     private Vehiculo vehiculo;
 
    /* Esto lo dejamos comentado porque no es necesario para el microservicio de reportes?
+
+   DUDASSSSSSSSs
+    */
     @ManyToOne
     @JoinColumn(name = "ID_INTERESADO", nullable = false)
-    private Interesado interesado; */
+    private Interesado interesado;
 
     @ManyToOne
-    @JoinColumn(name = "id_empleado", nullable = false)
+    @JoinColumn(name = "ID_EMPLEADO", nullable = false)
     private Empleado empleado;
 
 }

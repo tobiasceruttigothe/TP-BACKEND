@@ -15,20 +15,20 @@ import java.util.Date;
 public class Interesado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "ID")
     private int id;
-    @Column(name = "tipo_documento")
+    @Column(name = "TIPO_DOCUMENTO")
     private String tipoDoc;
-    @Column(name = "documento")
+    @Column(name = "DOCUMENTO")
     private String documento;
-    @Column(name = "nombre")
+    @Column(name = "NOMBRE")
     private String nombre;
-    @Column(name = "apellido")
+    @Column(name = "APELLIDO")
     private String apellido;
-    @Column(name = "restringido")
+    @Column(name = "RESTRINGIDO")
     private int restringido;
-    @Column(name = "numero_licencia")
+    @Column(name = "NRO_LICENCIA")
     private int nroLicencia;
-    @Column(name = "fecha_vencimiento_licencia")
+    @Column(name = "FECHA_VENCIMIENTO_LICENCIA")
     private LocalDate fechaVencimientoLicencia;
 }

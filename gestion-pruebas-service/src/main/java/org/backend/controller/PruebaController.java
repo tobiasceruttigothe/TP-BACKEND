@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/v1/pruebas")
+@RequestMapping("/api/pruebas")
 public class PruebaController {
 
 

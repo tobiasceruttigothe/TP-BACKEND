@@ -17,8 +17,8 @@ public class Vehiculo {
     @Column(name = "PATENTE", nullable = false)
     private String patente;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_modelo", nullable = false)
+    @ManyToOne//(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_MODELO", nullable = false)
     private Modelo modelo;
 
 

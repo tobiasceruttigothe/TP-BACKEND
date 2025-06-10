@@ -10,12 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-
-//ESTO ES DE EJEMPLO PARA PROBAR LA BD, CREO QUE NO HACE FALTA, REVISAR
 @RestController
-@RequestMapping("/api/marcas")
-public class MarcaController {
+@RequestMapping("/api/vehiculos")
+public class VehiculoController {
 
+/*
     @Autowired
     private MarcaRepository marcaRepository;
 
@@ -24,5 +23,7 @@ public class MarcaController {
         List<Marca> marcas = marcaRepository.findAll();
         return marcas;
     }
+
+ */
 
 }

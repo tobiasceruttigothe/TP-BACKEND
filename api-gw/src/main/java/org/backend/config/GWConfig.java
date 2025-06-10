@@ -12,13 +12,19 @@ public class GWConfig {
 
     @Bean
     public RouteLocator configurarRutas(RouteLocatorBuilder builder,
-                                        @Value("${apunte-api-gw-kempes.url-microservicio-personas}") String uriPersonas,
-                                        @Value("${apunte-api-gw-kempes.url-microservicio-entradas}") String uriEntradas) {
+                                        @Value("${api-gw.url-microservicio-notificaciones}") String uriNotificaciones,
+                                        @Value("${api-gw.url-microservicio-pruebas}") String uriPruebas,
+                                        @Value("${api-gw.url-microservicio-vehiculos}") String uriVehiculos,
+                                        @Value("${api-gw.url-microservicio-reportes}") String uriReportes) {
         return builder.routes()
-                // Ruteo al Microservicio de Personas
-                .route(p -> p.path("/api/personas/**").uri(uriPersonas))
-                // Ruteo al Microservicio de Entradas
-                .route(p -> p.path("/api/entradas/**").uri(uriEntradas))
+                // Ruteo al Microservicio de Notificaciones
+                .route(p -> p.path("/api/notificaciones/**").uri(uriNotificaciones))
+                // Ruteo al Microservicio de Pruebas de vehiculos
+                .route(p -> p.path("/api/pruebas/**").uri(uriPruebas))
+                // Ruteo al Microservicio de vehiculos
+                .route(p -> p.path("/api/vehiculos/**").uri(uriVehiculos))
+                // Ruteo al Microservicio de Reportes
+                .route(p -> p.path("/api/reportes/**").uri(uriReportes))
                 .build();
 
     }

@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class Empleado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "LEGAJO")
     private int legajo;
 
     @Column(name = "NOMBRE", nullable = false)

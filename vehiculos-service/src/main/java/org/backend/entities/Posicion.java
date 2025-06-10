@@ -16,8 +16,8 @@ public class Posicion {
     @Column(name = "ID")
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_vehiculo", nullable = false)
+    @ManyToOne//(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_VEHICULO", nullable = false)
     private Vehiculo vehiculo;
 
 

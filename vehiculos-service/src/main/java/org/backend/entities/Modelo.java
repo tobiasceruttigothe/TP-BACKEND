@@ -15,7 +15,7 @@ public class Modelo {
     @Column(name = "ID")
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne//(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_MARCA", nullable = false)
     private Marca marca;
 
