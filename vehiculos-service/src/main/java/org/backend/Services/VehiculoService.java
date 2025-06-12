@@ -1,24 +1,43 @@
 package org.backend.Services;
+import org.backend.DTOS.ConfiguracionAgencia;
 import org.backend.DTOS.Coordenada;
 import org.backend.DTOS.ZonaPeligrosa;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class VehiculoService {
     @Autowired
     private ConfiguracionService configuracionService;
+    private final RestTemplate restTemplate;
+
+
+    public VehiculoService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     public void procesarNuevaPosicion(double lat, double lon) {
+
         for (ZonaPeligrosa zona : configuracionService.getZonasPeligrosas()) {
+            System.out.println("Procesando zona: " + zona.getNombre_zona());
             double distancia = calcularDistancia(lat, lon, zona.getCoordenadas());
-            System.out.println("Zona: " + zona.getNombre_zona());
-            System.out.println("Distancia al centro: " + distancia + " m");
-            System.out.println("Radio de la zona " + zona.getNombre_zona() + ": " + zona.getRadio_metros() + " m");
-
-
             if (distancia <= zona.getRadio_metros()) {
                 System.out.println("Vehículo dentro de la zona peligrosa: " + zona.getNombre_zona());
+               /* try {
+                    restTemplate.postForObject(
+                            "http://localhost:8080/api/notificaciones/incidentes",
+                            notificacion,
+                            Void.class
+                    );
+                    System.out.println("Notificación enviada para zona: " + zona.getNombre_zona());
+                } catch (Exception e) {
+                    System.err.println("Error enviando notificación: " + e.getMessage());
+                }
+                */
+
+
             } else {
                 System.out.println("Vehículo fuera de la zona peligrosa: " + zona.getNombre_zona());
             }
@@ -26,16 +45,19 @@ public class VehiculoService {
     }
 
     private double calcularDistancia(double latVehiculo, double lonVehiculo, Coordenada centroZona) {
+
         double deltaLat = latVehiculo - centroZona.getLatitud();
         double deltaLon = lonVehiculo - centroZona.getLongitud();
 
-        // Usamos la latitud del centro para convertir longitud
-        double deltaLatMetros = deltaLat * 111_320;
-        double deltaLonMetros = deltaLon * 111_320 * Math.cos(Math.toRadians(centroZona.getLatitud()));
 
-        return Math.sqrt(Math.pow(deltaLatMetros, 2) + Math.pow(deltaLonMetros, 2));
+        double deltaLatMetros = deltaLat * 111_319.9;
+        double deltaLonMetros = deltaLon * 111_319.9 * Math.cos(Math.toRadians(centroZona.getLatitud()));
+
+
+        double distancia = Math.sqrt(deltaLatMetros * deltaLatMetros + deltaLonMetros * deltaLonMetros);
+
+        return distancia;
     }
-
 
 
 

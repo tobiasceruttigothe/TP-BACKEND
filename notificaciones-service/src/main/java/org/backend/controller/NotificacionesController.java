@@ -26,8 +26,8 @@ public class NotificacionesController {
         return ResponseEntity.ok().body(notificaciones);
     }
 
-    @GetMapping("/incidente")
-    public void incidentes(@PathVariable NotificacionesCreate notificacion) {
+    @PostMapping("/incidentes")
+    public void incidentes(@RequestBody NotificacionesCreate notificacion) {
         notificacionesService.saveNotification(notificacion);
     }
 }
