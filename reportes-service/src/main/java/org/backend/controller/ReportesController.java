@@ -35,9 +35,9 @@ public class ReportesController {
     }
 
     @GetMapping("/incidentes/empleado/{id}")
-    public ResponseEntity<Notificacion> getIncidentesPorEmpleado() {
-        Notificacion notificacion = notificacionesRepository.findByEmpleadoId();
-        return ResponseEntity.ok(notificacion);
+    public ResponseEntity<List<Notificacion>> getIncidentesPorEmpleado() {
+        List<Notificacion> notificaciones = notificacionesRepository.findByEmpleadoId();
+        return ResponseEntity.ok(notificaciones);
     }
 
     /*@GetMapping("/pruebas/km/{id}")

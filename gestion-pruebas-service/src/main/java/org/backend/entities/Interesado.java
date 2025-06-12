@@ -23,7 +23,7 @@ public class Interesado {
     private String tipo_documento;
 
     @Column(name = "DOCUMENTO", nullable = false)
-    private String documento;
+    private int documento;
 
     @Column(name = "NOMBRE", nullable = false)
     private String nombre;

@@ -36,4 +36,7 @@ public class Prueba {
     @ManyToOne
     @JoinColumn(name = "ID_EMPLEADO", nullable = false)
     private Empleado empleado;
+
+    @Column(name = "KM")
+    private Double km;
 }

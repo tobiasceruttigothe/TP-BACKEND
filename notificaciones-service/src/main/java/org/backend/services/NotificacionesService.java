@@ -28,7 +28,7 @@ public class NotificacionesService {
         interesadoService.restringirInteresado(notificacion.getInteresado().getId());
 
     }
-    //hay que dividir, un findall para las promociones y otro para los incidentes
+    //hay que dividir, un findAll para las promociones y otro para los incidentes
     public List<Notificacion> findAll() {
         return notificacionesRepository.findAll();
     }

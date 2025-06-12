@@ -5,7 +5,9 @@ import org.backend.entities.Notificacion;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 public interface NotificacionesRepository extends JpaRepository<Notificacion, Long> {
 
-    Notificacion findByEmpleadoId();
+    List<Notificacion> findByEmpleadoId();
 }

@@ -46,5 +46,4 @@ public class PruebaController {
         return ResponseEntity.ok(pruebaService.finalizarPrueba(id, comentario));
     }
 
-
 }
