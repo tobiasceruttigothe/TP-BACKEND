@@ -2,6 +2,7 @@ package org.backend.Services;
 import org.backend.DTOS.ConfiguracionAgencia;
 import org.backend.DTOS.Coordenada;
 import org.backend.DTOS.ZonaPeligrosa;
+import org.backend.entities.Prueba;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 public class VehiculoService {
     @Autowired
     private ConfiguracionService configuracionService;
+    private PruebaService pruebaService;
     private final RestTemplate restTemplate;
 
 
@@ -18,7 +20,8 @@ public class VehiculoService {
         this.restTemplate = restTemplate;
     }
 
-    public void procesarNuevaPosicion(double lat, double lon) {
+    public void procesarNuevaPosicion(double lat, double lon, Long idVehiculo) {
+        Prueba prueba = pruebaService.getPruebaActivasPorVehiculo(idVehiculo).stream().findFirst().orElse(null);
 
         for (ZonaPeligrosa zona : configuracionService.getZonasPeligrosas()) {
             System.out.println("Procesando zona: " + zona.getNombre_zona());
