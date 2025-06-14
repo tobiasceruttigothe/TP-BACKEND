@@ -19,4 +19,8 @@ public class VehiculoService {
         return (List<Vehiculo>) vehiculoRepository.findAll();
     }
 
+    public Vehiculo getVehiculoById(Long id) {
+        return vehiculoRepository.findById(id).orElse(null);
+    }
+
 }

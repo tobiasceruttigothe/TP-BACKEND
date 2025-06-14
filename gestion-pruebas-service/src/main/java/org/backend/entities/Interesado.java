@@ -2,6 +2,7 @@ package org.backend.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -38,5 +39,13 @@ public class Interesado {
     private int nroLicencia;
 
     @Column(name = "FECHA_VENCIMIENTO_LICENCIA", nullable = false)
-    private LocalDate fechaVenicimientoLicencia;
+    private String fechaVencimientoLicencia;
+
+    //private Date fechaVencimiento;
+
+    public LocalDate getFechaVencimiento() {
+        //return java.sql.Date.valueOf(this.getFechaVencimientoLicencia());
+        return LocalDate.parse(this.getFechaVencimientoLicencia()).atStartOfDay().toLocalDate();
+    }
+    //
 }

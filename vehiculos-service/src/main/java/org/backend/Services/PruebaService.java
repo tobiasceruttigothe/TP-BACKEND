@@ -19,7 +19,7 @@ public class PruebaService {
     }
 
     public Prueba getPruebaActivasPorVehiculo(Long vehiculoId) {
-        //return pruebaRepository.findByFechaHoraFinIsNotNullAndVehiculoId(vehiculoId);
-        return PruebaRepository.findByVehiculoId(vehiculoId);
+        return pruebaRepository.findByFechaHoraFinIsNotNullAndVehiculoId(vehiculoId);
+        //return PruebaRepository.findByVehiculoId(vehiculoId);
     }
 }

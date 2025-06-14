@@ -32,7 +32,7 @@ public class PruebaController {
     }
 
     @PostMapping("/crear")
-    public ResponseEntity<Prueba> addPrueba(PruebaCreateDTO prueba) {
+    public ResponseEntity<Prueba> addPrueba(@RequestBody PruebaCreateDTO prueba) {
         Prueba savedPrueba = pruebaService.savePrueba(prueba);
         return ResponseEntity.ok(savedPrueba);
     }
