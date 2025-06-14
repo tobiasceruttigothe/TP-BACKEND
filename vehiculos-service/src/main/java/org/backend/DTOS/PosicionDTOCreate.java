@@ -6,7 +6,8 @@ import org.backend.entities.Vehiculo;
 @Data
 public class PosicionDTOCreate {
 
-    private Coordenada coordenada;
+    private Double longitud;
+    private Double latitud;
     private Long idVehiculo;
 
 

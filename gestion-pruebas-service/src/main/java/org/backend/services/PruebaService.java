@@ -41,6 +41,7 @@ public class PruebaService {
         nuevaPrueba.setInteresado(prueba.getInteresado());
         nuevaPrueba.setEmpleado(prueba.getEmpleado());
         return pruebaRepository.save(nuevaPrueba);
+
     }
 
 

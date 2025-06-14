@@ -8,7 +8,12 @@ import java.util.List;
 
 public interface PruebaRepository extends JpaRepository<Prueba, Long> {
 
-    List<Prueba> findByFechaHoraFinIsNotNullAndVehiculoId(Long vehiculoId);
+    static Prueba findByVehiculoId(Long vehiculoId) {
+        return null;
+    }
+
+
+    Prueba findByFechaHoraFinIsNotNullAndVehiculoId(Long vehiculoId);
 
 }
 

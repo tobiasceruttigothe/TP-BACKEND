@@ -12,7 +12,9 @@ import org.springframework.web.client.RestTemplate;
 public class VehiculoService {
     @Autowired
     private ConfiguracionService configuracionService;
+    @Autowired
     private PruebaService pruebaService;
+    @Autowired
     private final RestTemplate restTemplate;
 
 
@@ -21,7 +23,12 @@ public class VehiculoService {
     }
 
     public void procesarNuevaPosicion(double lat, double lon, Long idVehiculo) {
-        Prueba prueba = pruebaService.getPruebaActivasPorVehiculo(idVehiculo).stream().findFirst().orElse(null);
+        Prueba prueba = pruebaService.getPruebaActivasPorVehiculo(idVehiculo);
+        if (prueba == null) {
+            System.out.println("No hay prueba activa para el vehículo con ID: " + idVehiculo);
+            return;
+        }
+
 
         for (ZonaPeligrosa zona : configuracionService.getZonasPeligrosas()) {
             System.out.println("Procesando zona: " + zona.getNombre_zona());

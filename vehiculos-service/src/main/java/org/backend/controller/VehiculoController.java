@@ -19,7 +19,7 @@ public class VehiculoController {
     private VehiculoService vehiculoService;
     @PostMapping
     public void procesarNuevaPosicion(@RequestBody PosicionDTOCreate posicion) {
-        vehiculoService.procesarNuevaPosicion(posicion.getCoordenada().getLatitud(), posicion.getCoordenada().getLongitud(), posicion.getIdVehiculo());
+        vehiculoService.procesarNuevaPosicion(posicion.getLatitud(), posicion.getLongitud(), posicion.getIdVehiculo());
     }
 
 

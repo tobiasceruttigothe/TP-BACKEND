@@ -5,7 +5,7 @@ import java.util.List;
 @Data
 public class ConfiguracionAgencia {
     private Coordenada ubicacion_agencia;
-    private double radio_maximo_metros;
+    private int radio_maximo_metros;
     private List<ZonaPeligrosa> zonas_peligrosas;
 
     // getters y setters
