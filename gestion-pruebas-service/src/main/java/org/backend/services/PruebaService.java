@@ -36,7 +36,9 @@ public class PruebaService {
     public Prueba savePrueba(PruebaCreateDTO pruebaAControlar) {
         PruebaCreateDTO prueba = controlesPrueba(pruebaAControlar);
         Prueba nuevaPrueba = new Prueba();
-        nuevaPrueba.setFechaHoraInicio(prueba.getFechaHoraInicio());
+        //nuevaPrueba.setFechaHoraInicio(prueba.getFechaHoraInicio());
+
+        nuevaPrueba.setFechaHoraInicio(LocalDateTime.now());
         nuevaPrueba.setVehiculo(prueba.getVehiculo());
         nuevaPrueba.setInteresado(prueba.getInteresado());
         nuevaPrueba.setEmpleado(prueba.getEmpleado());

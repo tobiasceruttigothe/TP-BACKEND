@@ -12,8 +12,9 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 public class PruebaCreateDTO {
-
-    private LocalDateTime fechaHoraInicio;
+    //HAY QUE CAMBIARLO, DEBERIAMOS RECIBIR ID VEHICULO, INTERESADO Y EMPLEADO.
+    // Y EN EL SERVICE BUSCARLOS Y CARGARLOS A LA PRUEBA
+    //private LocalDateTime fechaHoraInicio;
     private Vehiculo vehiculo;
     private Interesado interesado;
     private Empleado empleado;
