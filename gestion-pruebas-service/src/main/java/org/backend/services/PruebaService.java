@@ -83,7 +83,7 @@ public class PruebaService {
             if (prueba.getInteresado().getFechaVencimiento().isBefore(LocalDate.now())) {
                 throw new IllegalArgumentException("El interesado no tiene licencia vigente");
             }
-            if (prueba.getInteresado().getRestringido() != 0) {
+            if (prueba.getInteresado().getRestringido() == 1) {
                 throw new IllegalArgumentException("El interesado tiene restricciones en su licencia");
             }
         }

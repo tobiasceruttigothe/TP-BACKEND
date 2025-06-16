@@ -24,6 +24,6 @@ public class Empleado {
     private String apellido;
 
     @Column(name = "TELEFONO_CONTACTO", nullable = false)
-    private int telefono_contacto;
+    private Long telefono_contacto;
 
 }
