@@ -13,7 +13,7 @@ public interface PruebaRepository extends JpaRepository<Prueba, Long> {
     }
 
 
-    Prueba findByFechaHoraFinIsNotNullAndVehiculoId(Long vehiculoId);
+    Prueba findByFechaHoraFinIsNullAndVehiculoId(Long vehiculoId);
 
 }
 
