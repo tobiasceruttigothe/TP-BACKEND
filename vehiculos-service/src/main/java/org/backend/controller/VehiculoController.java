@@ -19,21 +19,6 @@ public class VehiculoController {
     private VehiculoService vehiculoService;
     @PostMapping
     public void procesarNuevaPosicion(@RequestBody PosicionDTOCreate posicion) {
-        vehiculoService.procesarNuevaPosicion(posicion.getLatitud(), posicion.getLongitud(), posicion.getIdVehiculo());
+        vehiculoService.procesarNuevaPosicion(posicion);
     }
-
-
-
-/*
-    @Autowired
-    private MarcaRepository marcaRepository;
-
-    @GetMapping
-    public List<Marca> getAllMarcas() {
-        List<Marca> marcas = marcaRepository.findAll();
-        return marcas;
-    }
-
- */
-
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface PruebaRepository extends JpaRepository<Prueba, Long> {
 
-    List<Prueba> findByFechaHoraFinIsNotNull();
+    List<Prueba> findByFechaHoraFinIsNull();
 }
 
 

@@ -17,4 +17,8 @@ public class AgenciaService {
         agenciaRepository.save(agencia);
     }
 
+    public Agencia obtenerAgencia() {
+        return agenciaRepository.findAll().stream().findFirst().orElse(null);
+    }
+
 }

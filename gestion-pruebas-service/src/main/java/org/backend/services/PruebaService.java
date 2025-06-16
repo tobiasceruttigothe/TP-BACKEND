@@ -2,10 +2,8 @@ package org.backend.services;
 
 
 import org.backend.dtos.PruebaCreateDTO;
-import org.backend.entities.Empleado;
-import org.backend.entities.Interesado;
-import org.backend.entities.Prueba;
-import org.backend.entities.Vehiculo;
+import org.backend.entities.*;
+import org.backend.repository.PosicionRepository;
 import org.backend.repository.PruebaRepository;
 import org.backend.repository.VehiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +26,9 @@ public class PruebaService {
     @Autowired
     private final EmpleadoService empleadoService;
 
+    @Autowired
+    private PosicionRepository posicionRepository;
+
     public PruebaService(PruebaRepository pruebaRepository, VehiculoService vehiculoService, InteresadoService interesadoService, EmpleadoService empleadoService) {
         this.pruebaRepository = pruebaRepository;
         this.vehiculoService = vehiculoService;
@@ -42,7 +43,7 @@ public class PruebaService {
 
     public List<Prueba> getPruebasActivas() {
 
-        return pruebaRepository.findByFechaHoraFinIsNotNull();
+        return pruebaRepository.findByFechaHoraFinIsNull();
     }
 
     public Prueba getPruebaById(Long id) {
@@ -86,8 +87,11 @@ public class PruebaService {
     public Prueba finalizarPrueba(Long id, String comentario) {
         Prueba prueba = getPruebaById(id);
         if (prueba != null) {
+            double kilometros = calcularKmRecorridos(prueba);
+
             prueba.setFechaHoraFin(LocalDateTime.now());
             prueba.setComentarios(comentario);
+            prueba.setKm(kilometros);
             return pruebaRepository.save(prueba);
         }
         return pruebaRepository.findById(id).orElse(null);
@@ -111,4 +115,38 @@ public class PruebaService {
         //prueba.setComentarios(null);
         return prueba;
     }
+
+    public double calcularKmRecorridos(Prueba prueba) {
+        int idVehiculo = prueba.getVehiculo().getId();
+        LocalDateTime inicio = prueba.getFechaHoraInicio();
+        LocalDateTime fin = LocalDateTime.now();
+
+        List<Posicion> posiciones = posicionRepository
+                .findByVehiculoIdAndFechaHoraBetweenOrderByFechaHoraAsc(idVehiculo, inicio, fin);
+
+        double totalMetros = 0.0;
+
+        for (int i = 1; i < posiciones.size(); i++) {
+            Posicion p1 = posiciones.get(i - 1);
+            Posicion p2 = posiciones.get(i);
+            totalMetros += calcularDistancia(
+                    p1.getLatitud(), p1.getLongitud(),
+                    p2.getLatitud(), p2.getLongitud()
+            );
+        }
+
+        return totalMetros / 1000.0;
+    }
+
+    private double calcularDistancia(double lat1, double lon1, double lat2, double lon2) {
+        double deltaLat = lat1 - lat2;
+        double deltaLon = lon1 - lon2;
+
+        double deltaLatMetros = deltaLat * 111_319.9;
+        double deltaLonMetros = deltaLon * 111_319.9 * Math.cos(Math.toRadians(lat2));
+
+        return Math.sqrt(deltaLatMetros * deltaLatMetros + deltaLonMetros * deltaLonMetros);
+    }
+
+
 }
