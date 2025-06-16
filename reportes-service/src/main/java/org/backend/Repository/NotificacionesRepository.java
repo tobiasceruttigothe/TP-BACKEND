@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface NotificacionesRepository extends JpaRepository<Notificacion, Long> {
 
-    List<Notificacion> findByEmpleadoId();
+    List<Notificacion> findByEmpleado_Legajo(int empleadoLegajo);
 }

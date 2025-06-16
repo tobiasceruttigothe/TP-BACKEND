@@ -46,8 +46,14 @@ public class PruebaService {
         return pruebaRepository.findByFechaHoraFinIsNull();
     }
 
-    public Prueba getPruebaById(Long id) {
-        return pruebaRepository.findById(id).orElse(null);
+    public Prueba getPruebaActivaById(Long id) {
+        List<Prueba> pruebas = getPruebasActivas();
+        for (Prueba prueba : pruebas) {
+            if (prueba.getId() == (id)) {
+                return prueba;
+            }
+        }
+        return null;
     }
 
     public Prueba savePrueba(PruebaCreateDTO pruebaCreateDTO) {
@@ -85,7 +91,7 @@ public class PruebaService {
     }
 
     public Prueba finalizarPrueba(Long id, String comentario) {
-        Prueba prueba = getPruebaById(id);
+        Prueba prueba = getPruebaActivaById(id);
         if (prueba != null) {
             double kilometros = calcularKmRecorridos(prueba);
 

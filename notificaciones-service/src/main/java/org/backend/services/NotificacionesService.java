@@ -15,7 +15,11 @@ public class NotificacionesService {
 
     @Autowired
     private NotificacionesRepository notificacionesRepository;
-    private InteresadoService interesadoService;
+    private final InteresadoService interesadoService;
+
+    public NotificacionesService(InteresadoService interesadoService) {
+        this.interesadoService = interesadoService;
+    }
 
     public void saveNotification(NotificacionesCreate notificacioncreate) {
         Notificacion notificacion = new Notificacion();

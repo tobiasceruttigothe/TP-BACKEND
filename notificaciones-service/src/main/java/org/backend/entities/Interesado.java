@@ -29,6 +29,11 @@ public class Interesado {
     private int restringido;
     @Column(name = "NRO_LICENCIA")
     private int nroLicencia;
-    @Column(name = "FECHA_VENCIMIENTO_LICENCIA")
-    private LocalDate fechaVencimientoLicencia;
+
+    @Column(name = "FECHA_VENCIMIENTO_LICENCIA", nullable = false)
+    private String fechaVencimientoLicencia;
+
+    public LocalDate getFechaVencimiento() {
+        return LocalDate.parse(this.getFechaVencimientoLicencia()).atStartOfDay().toLocalDate();
+    }
 }

@@ -35,5 +35,10 @@ public class Interesado {
     private int nroLicencia;
 
     @Column(name = "FECHA_VENCIMIENTO_LICENCIA", nullable = false)
-    private LocalDate fechaVenicimientoLicencia;
+    private String fechaVenicimientoLicencia;
+
+    public LocalDate getFechaVencimiento() {
+        //return java.sql.Date.valueOf(this.getFechaVencimientoLicencia());
+        return LocalDate.parse(this.getFechaVenicimientoLicencia()).atStartOfDay().toLocalDate();
+    }
 }

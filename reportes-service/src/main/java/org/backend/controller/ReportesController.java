@@ -8,6 +8,8 @@ import org.backend.entities.Empleado;
 import org.backend.entities.Marca;
 import org.backend.entities.Notificacion;
 import org.backend.entities.Prueba;
+import org.backend.services.NotificacionService;
+import org.backend.services.PruebaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,19 +26,19 @@ public class ReportesController {
     //revisar si es necesario el repository de empleado y los @Autowired
 
     @Autowired
-    private NotificacionesRepository notificacionesRepository;
+    private NotificacionService notificacionService;
     @Autowired
-    private PruebaRepository pruebaRepository;
+    private PruebaService pruebaService;
 
     @GetMapping("/incidentes")
     public ResponseEntity<List<Notificacion>> getAllIncidentes() {
-        List<Notificacion> notificaciones = notificacionesRepository.findAll();
+        List<Notificacion> notificaciones = notificacionService.getNotificaciones();
         return ResponseEntity.ok(notificaciones);
     }
 
     @GetMapping("/incidentes/empleado/{id}")
-    public ResponseEntity<List<Notificacion>> getIncidentesPorEmpleado() {
-        List<Notificacion> notificaciones = notificacionesRepository.findByEmpleadoId();
+    public ResponseEntity<List<Notificacion>> getIncidentesPorEmpleado(@PathVariable int id) {
+        List<Notificacion> notificaciones = notificacionService.getNotificacionesByEmpleado(id);
         return ResponseEntity.ok(notificaciones);
     }
 
@@ -47,8 +49,8 @@ public class ReportesController {
 
      */
     @GetMapping("/pruebas/vehiculo/{id}")
-    public ResponseEntity<List<Prueba>> getPruebasPorVehiculo(@PathVariable Long id) {
-        List<Prueba> pruebas = pruebaRepository.findByVehiculoId(id);
+    public ResponseEntity<List<Prueba>> getPruebasPorVehiculo(@PathVariable int id) {
+        List<Prueba> pruebas = pruebaService.findByVehiculoId(id);
         return ResponseEntity.ok(pruebas);
     }
 }

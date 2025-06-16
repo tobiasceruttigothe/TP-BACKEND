@@ -11,5 +11,5 @@ import java.util.List;
 public interface PruebaRepository extends JpaRepository<Prueba, Long> {
 
 
-    List<Prueba> findByVehiculoId(Long id);
+    List<Prueba> findByVehiculoId(int id);
 }

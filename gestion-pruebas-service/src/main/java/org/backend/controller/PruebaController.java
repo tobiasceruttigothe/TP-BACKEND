@@ -39,7 +39,7 @@ public class PruebaController {
 
     @PatchMapping("/finaliza/{id}")
     public ResponseEntity<Prueba> finalizarPrueba(@PathVariable Long id, @RequestBody String comentario) {
-        Prueba existingPrueba = pruebaService.getPruebaById(id);
+        Prueba existingPrueba = pruebaService.getPruebaActivaById(id);
         if (existingPrueba == null) {
             return ResponseEntity.notFound().build();
         }

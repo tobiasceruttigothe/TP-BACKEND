@@ -61,8 +61,9 @@ public class VehiculoService {
                 posicionAgencia.setLatitud(agencia.getLatitud());
                 posicionAgencia.setLongitud(agencia.getLongitud());
                 posicionAgencia.setIdVehiculo(posicionDTO.getIdVehiculo());
-
                 nuevaPosicion(posicionAgencia);
+
+                System.out.println("Vehículo regresado a la agencia por estar en zona peligrosa." + posicionAgencia);
                 break;
             }
         }
