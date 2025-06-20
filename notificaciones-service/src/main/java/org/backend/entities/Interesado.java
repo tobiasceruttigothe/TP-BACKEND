@@ -34,6 +34,12 @@ public class Interesado {
     private String fechaVencimientoLicencia;
 
     public LocalDate getFechaVencimiento() {
-        return LocalDate.parse(this.getFechaVencimientoLicencia()).atStartOfDay().toLocalDate();
+        if (this.fechaVencimientoLicencia == null) {
+            return null;
+        }
+        return LocalDate.parse(this.fechaVencimientoLicencia);
     }
+    //lo modifique porque si fechaVencimientoLicencia era null, intentaba hacer LocalDate.parse(null),
+    // lo cual tiraba error. ahora si fechaVencimientoLicencia es null, entonces retorna null directamente y evita el parse().
+
 }
