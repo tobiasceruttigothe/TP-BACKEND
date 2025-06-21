@@ -21,8 +21,9 @@ public class SecurityConfig {
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http
+                .csrf(csrf -> csrf.disable()) // 🔐 Desactivar CSRF
                 .authorizeExchange(exchanges -> exchanges
-                        .pathMatchers("/api/notificaciones/**").hasRole("EMPLEADO")
+                        .pathMatchers("/api/notificaciones/**").permitAll()
                         .pathMatchers("/api/vehiculos/**").hasRole("VEHICULO")
                         .pathMatchers("/api/pruebas/**").hasAnyRole("EMPLEADO", "ADMIN")
                         .pathMatchers("/api/reportes/**").hasRole("ADMIN")
