@@ -7,6 +7,7 @@ import org.backend.entities.Notificacion;
 import org.backend.entities.Vehiculo;
 import org.backend.repository.NotificacionesRepository;
 
+import org.backend.services.DsNotificacionService;
 import org.backend.services.InteresadoService;
 import org.backend.services.NotificacionesService;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,17 +26,23 @@ public class NotificacionesServiceTest {
     private NotificacionesRepository notificacionesRepository;
     private InteresadoService interesadoService;
     private NotificacionesService notificacionesService;
+    private DsNotificacionService dsNotificacionService;
+
+
 
     @BeforeEach
     void setup() {
         //creamos los mocks de las dependencias para que simulen los comporamientos de esas clases
         notificacionesRepository = mock(NotificacionesRepository.class);
+        dsNotificacionService = mock(DsNotificacionService.class);
         interesadoService = mock(InteresadoService.class);
         // creamos una instancia real de NotificacionesService pasandole el mock
         notificacionesService = new NotificacionesService(interesadoService);
 
         //instanciamos el servicio de notificaciones y le inyectamos el repositorio
         injectRepository(notificacionesService, notificacionesRepository);
+        injectDsNotificacionService(notificacionesService, dsNotificacionService);
+
     }
 
     @Test
@@ -82,4 +89,14 @@ public class NotificacionesServiceTest {
             throw new RuntimeException(e);
         }
     }
+    private void injectDsNotificacionService(NotificacionesService service, DsNotificacionService dsService) {
+        try {
+            var field = NotificacionesService.class.getDeclaredField("dsNotificacionService");
+            field.setAccessible(true);
+            field.set(service, dsService);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

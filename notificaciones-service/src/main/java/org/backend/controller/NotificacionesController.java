@@ -30,7 +30,7 @@ public class NotificacionesController {
     public ResponseEntity<List<Promocion>> promociones() {
         List<Promocion> promociones = promocionService.findAll();
         for (Promocion promo : promociones) {
-            String mensaje = "¡🚨 ATENCION 🚨!\n" + promo.getDescripcion();
+            String mensaje = "¡ ATENCION !\n" + promo.getDescripcion();
             dsNotificacionService.sendMessage(mensaje);
         }
         return ResponseEntity.ok().body(promociones);
