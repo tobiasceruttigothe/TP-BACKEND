@@ -96,4 +96,34 @@ public class GestionPruebasControllerTest {
                         .content(objectMapper.writeValueAsString("Comentario")))
                 .andExpect(status().isNotFound());
     }
+
+    // POST /api/pruebas/crear — error en servicio
+    @Test
+    void testAddPrueba_ErrorEnServicio() throws Exception {
+        PruebaCreateDTO dto = new PruebaCreateDTO(1L, 2L, 3L);
+
+        doThrow(new RuntimeException("Error interno")).when(pruebaService).savePrueba(any());
+
+        mockMvc.perform(post("/api/pruebas/crear")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(dto)))
+                .andExpect(status().isInternalServerError());
+    }
+
+    // PATCH /api/pruebas/finaliza/{id} — excepción en servicio
+    @Test
+    void testFinalizarPrueba_ExcepcionEnServicio() throws Exception {
+        Long id = 1L;
+        String comentario = "Error";
+
+        Prueba prueba = new Prueba();
+        when(pruebaService.getPruebaActivaById(id)).thenReturn(prueba);
+        doThrow(new RuntimeException("Falla")).when(pruebaService).finalizarPrueba(eq(id), anyString());
+
+        mockMvc.perform(patch("/api/pruebas/finaliza/{id}", id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(comentario)))
+                .andExpect(status().is5xxServerError());
+    }
+
 }

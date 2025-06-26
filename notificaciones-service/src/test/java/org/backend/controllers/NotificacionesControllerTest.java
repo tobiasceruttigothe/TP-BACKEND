@@ -88,7 +88,39 @@ public class NotificacionesControllerTest {
         verify(promocionService, times(1)).findAll();
     }
 
+    //Falta información en el cuerpo del POST
 
+    //java.lang.AssertionError: Status expected:<400> but was:<200>
+    //Expected :400
+    //Actual   :200
+    @Test
+    void testCrearNotificacionConDatosInvalidos() throws Exception {
+        NotificacionesCreate dtoInvalido = new NotificacionesCreate(null, null, null, null); // todos los campos null
+
+        mockMvc.perform(post("/api/notificaciones/incidentes")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(dtoInvalido)))
+                .andExpect(status().isBadRequest()) // Podés cambiar esto a isOk si tu controlador no valida.
+                .andReturn();
+    }
+    //el servicio lanza una excepción al intentar guardar la notificación
+    // etse falla pq no tenemos try catch en el controlador, por lo que no se maneja la excepción y se devuelve un error 500
+    @Test
+    void testCrearNotificacionConFalloDelServicio() throws Exception {
+        Empleado empleado = new Empleado();
+        Interesado interesado = new Interesado();
+        Vehiculo vehiculo = new Vehiculo();
+        String comentario = "Algo salió mal";
+
+        NotificacionesCreate dto = new NotificacionesCreate(empleado, vehiculo, interesado, comentario);
+
+        doThrow(new RuntimeException("Error interno")).when(notificacionesService).saveNotification(any());
+
+        mockMvc.perform(post("/api/notificaciones/incidentes")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(dto)))
+                .andExpect(status().is5xxServerError()); // Esperamos un error del lado del servidor
+    }
 
 
 

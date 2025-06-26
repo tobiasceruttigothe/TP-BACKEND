@@ -42,4 +42,17 @@ public class VehiculoControllerTest {
 
         verify(vehiculoService).procesarNuevaPosicion(posicion);
     }
+
+    @Test
+    void testProcesarNuevaPosicionSinIdVehiculo() throws Exception {
+        PosicionDTOCreate posicion = new PosicionDTOCreate();
+        posicion.setLatitud(-31.4167);
+        posicion.setLongitud(-64.1833);
+        // no seteamos el ID del vehículo
+
+        mockMvc.perform(post("/api/vehiculos")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(posicion)))
+                .andExpect(status().is4xxClientError()); // o is4xxClientError si no tenés validación
+    }
 }
