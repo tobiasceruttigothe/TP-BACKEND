@@ -30,10 +30,9 @@ public class Prueba {
     @JoinColumn(name = "ID_VEHICULO", nullable = false)
     private Vehiculo vehiculo;
 
-   /* Esto lo dejamos comentado porque no es necesario para el microservicio de reportes?
+    @Column(name = "KM")
+    private Double km;
 
-   DUDASSSSSSSSs
-    */
     @ManyToOne
     @JoinColumn(name = "ID_INTERESADO", nullable = false)
     private Interesado interesado;

@@ -8,6 +8,7 @@ import org.backend.repository.PruebaRepository;
 import org.backend.repository.VehiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -29,11 +30,15 @@ public class PruebaService {
     @Autowired
     private PosicionRepository posicionRepository;
 
-    public PruebaService(PruebaRepository pruebaRepository, VehiculoService vehiculoService, InteresadoService interesadoService, EmpleadoService empleadoService) {
+    @Autowired
+    private final RestTemplate restTemplate;
+
+    public PruebaService(PruebaRepository pruebaRepository, VehiculoService vehiculoService, InteresadoService interesadoService, EmpleadoService empleadoService, RestTemplate restTemplate) {
         this.pruebaRepository = pruebaRepository;
         this.vehiculoService = vehiculoService;
         this.interesadoService = interesadoService;
         this.empleadoService = empleadoService;
+        this.restTemplate = restTemplate;
     }
 
 
@@ -59,7 +64,16 @@ public class PruebaService {
     public Prueba savePrueba(PruebaCreateDTO pruebaCreateDTO) {
         Prueba pruebaAControlar = findAndMatch(pruebaCreateDTO);
         Prueba nuevaPrueba = controlesPrueba(pruebaAControlar);
+        int id = nuevaPrueba.getId();
 
+        try {
+            restTemplate.getForObject(
+                    "http://localhost:8080/api/vehiculos/agencia/" + id, Void.class
+            );
+            //System.out.println("Notificación enviada: " + id.getComentario());
+        } catch (Exception e) {
+            System.err.println("Error enviando notificación: " + e.getMessage());
+        }
         return pruebaRepository.save(nuevaPrueba);
 
     }
@@ -153,6 +167,7 @@ public class PruebaService {
 
         return Math.sqrt(deltaLatMetros * deltaLatMetros + deltaLonMetros * deltaLonMetros);
     }
+
 
 
 }

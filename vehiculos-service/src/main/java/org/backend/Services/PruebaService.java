@@ -18,7 +18,7 @@ public class PruebaService {
         this.pruebaRepository = pruebaRepository;
     }
 
-    public Prueba getPruebaActivasPorVehiculo(Long vehiculoId) {
+    public Prueba getPruebaActivasPorVehiculo(int vehiculoId) {
         return pruebaRepository.findByFechaHoraFinIsNullAndVehiculoId(vehiculoId);
     }
 }

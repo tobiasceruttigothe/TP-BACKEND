@@ -5,10 +5,7 @@ import org.backend.DTOS.PosicionDTOCreate;
 import org.backend.Services.VehiculoService;
 import org.backend.entities.Posicion;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -20,5 +17,10 @@ public class VehiculoController {
     @PostMapping
     public void procesarNuevaPosicion(@RequestBody PosicionDTOCreate posicion) {
         vehiculoService.procesarNuevaPosicion(posicion);
+    }
+
+    @GetMapping("/agencia/{id}")
+    public void procesarNuevaPosicionAgencia(@PathVariable int id) {
+        vehiculoService.procesarNuevaPosicionAgencia(id);
     }
 }

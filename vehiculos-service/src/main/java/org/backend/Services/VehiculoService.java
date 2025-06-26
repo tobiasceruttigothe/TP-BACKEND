@@ -112,4 +112,17 @@ public class VehiculoService {
             System.err.println("Error enviando notificación: " + e.getMessage());
         }
     }
+
+    public void procesarNuevaPosicionAgencia(int id) {
+        Agencia agencia = agenciaService.obtenerAgencia();
+        if (agencia == null) {
+            System.out.println("No se encontró la agencia con ID: " + id);
+            return;
+        }
+        PosicionDTOCreate posicionDTOCreate = new PosicionDTOCreate();
+        posicionDTOCreate.setLatitud(agencia.getLatitud());
+        posicionDTOCreate.setLongitud(agencia.getLongitud());
+        posicionDTOCreate.setIdVehiculo(id);
+        nuevaPosicion(posicionDTOCreate);
+    }
 }

@@ -1,6 +1,7 @@
 package org.backend.controller;
 
 
+import org.backend.DTOS.ReporteDTO;
 import org.backend.Repository.EmpleadoRepository;
 import org.backend.Repository.NotificacionesRepository;
 import org.backend.Repository.PruebaRepository;
@@ -12,11 +13,9 @@ import org.backend.services.NotificacionService;
 import org.backend.services.PruebaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -42,12 +41,17 @@ public class ReportesController {
         return ResponseEntity.ok(notificaciones);
     }
 
-    /*@GetMapping("/pruebas/km/{id}")
-    public Double getKilometrosPrueba() {
-
+    @GetMapping("/pruebas/km/{id}")
+    public ResponseEntity<Double> getKilometrosPrueba(@PathVariable int id, @RequestBody ReporteDTO reporteDTO) {
+        double kmTotales = pruebaService.findByVehiculoIdAndFechaHoraInicioBetween(
+                id,
+                reporteDTO.getFechaInicio(),
+                reporteDTO.getFechaFin()
+        );
+        return ResponseEntity.ok(kmTotales);
     }
 
-     */
+
     @GetMapping("/pruebas/vehiculo/{id}")
     public ResponseEntity<List<Prueba>> getPruebasPorVehiculo(@PathVariable int id) {
         List<Prueba> pruebas = pruebaService.findByVehiculoId(id);

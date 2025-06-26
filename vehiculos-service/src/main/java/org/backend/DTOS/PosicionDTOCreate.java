@@ -8,7 +8,7 @@ public class PosicionDTOCreate {
 
     private Double longitud;
     private Double latitud;
-    private Long idVehiculo;
+    private int idVehiculo;
 
 
 }

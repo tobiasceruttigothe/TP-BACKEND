@@ -25,6 +25,9 @@ public class Prueba {
     @Column(name = "COMENTARIOS", nullable = true)
     private String comentarios;
 
+    @Column(name = "KM")
+    private Double km;
+
     @ManyToOne
     @JoinColumn(name = "ID_VEHICULO", nullable = false)
     private Vehiculo vehiculo;
