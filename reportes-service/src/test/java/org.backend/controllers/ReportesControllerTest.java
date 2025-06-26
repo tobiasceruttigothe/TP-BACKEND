@@ -89,4 +89,33 @@ public class ReportesControllerTest {
 
         verify(pruebaService, times(1)).findByVehiculoId(vehiculoId);
     }
+    //GET /api/reportes/incidentes/empleado/{id} con ID inválido (negativo)
+    @Test
+    void testGetIncidentesPorEmpleadoConIdInvalido() throws Exception {
+        int empleadoId = -1;
+
+        mockMvc.perform(get("/api/reportes/incidentes/empleado/{id}", empleadoId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk()) // porque el endpoint igual devuelve 200 con lista vacía
+                .andExpect(jsonPath("$.size()").value(0));
+
+        verify(notificacionService).getNotificacionesByEmpleado(empleadoId);
+    }
+
+    //GET /api/reportes/pruebas/vehiculo/{id} con lista vacía (vehículo sin pruebas)
+    @Test
+    void testGetPruebasPorVehiculoSinResultados() throws Exception {
+        int vehiculoId = 999;
+
+        when(pruebaService.findByVehiculoId(vehiculoId)).thenReturn(List.of());
+
+        mockMvc.perform(get("/api/reportes/pruebas/vehiculo/{id}", vehiculoId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()").value(0));
+
+        verify(pruebaService).findByVehiculoId(vehiculoId);
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package org.backend.DTOS;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.backend.entities.Vehiculo;
 
@@ -9,6 +10,5 @@ public class PosicionDTOCreate {
     private Double longitud;
     private Double latitud;
     private Long idVehiculo;
-
 
 }
