@@ -24,7 +24,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // 🔐 Desactivar CSRF
                 .authorizeExchange(exchanges -> exchanges
                         .pathMatchers("/api/notificaciones/**").permitAll()
-                        .pathMatchers("/api/vehiculos/**").hasRole("VEHICULO")
+                        .pathMatchers("/api/vehiculos/**").hasAnyRole("VEHICULO", "ADMIN", "EMPLEADO")
                         .pathMatchers("/api/pruebas/**").hasAnyRole("EMPLEADO", "ADMIN")
                         .pathMatchers("/api/reportes/**").hasRole("ADMIN")
                         .anyExchange().authenticated()

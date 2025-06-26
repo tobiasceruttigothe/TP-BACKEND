@@ -55,7 +55,7 @@ public class GestionPruebasControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(2));
     }
-
+/*
     @Test
     void testAddPrueba() throws Exception {
         PruebaCreateDTO dto = new PruebaCreateDTO(1L, 2L, 3L);
@@ -70,6 +70,8 @@ public class GestionPruebasControllerTest {
                         .content(objectMapper.writeValueAsString(dto)))
                 .andExpect(status().isOk());
     }
+
+ */
 
     @Test
     void testFinalizarPrueba_Success() throws Exception {

@@ -1,6 +1,7 @@
 package org.backend.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
@@ -29,6 +30,14 @@ public class GWConfig {
                 .route(p -> p.path("/api/reportes/**").uri(uriReportes))
                 .build();
 
+    }
+
+    @Bean
+    public GlobalFilter logFilter() {
+        return (exchange, chain) -> {
+            System.out.println("Request recibida en Gateway: " + exchange.getRequest().getURI());
+            return chain.filter(exchange);
+        };
     }
 
 }
