@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class DsNotificacionService {
-    private static final String WEBHOOK_URL = "https://discordapp.com/api/webhooks/1386072062245732392/xnDNOeXKE1fjenkWoKdwkvGE0NwyMB54ydRHsTIo_CLq_nvBR5K5hxd0_Y3WYK3RXknX";
+    private static final String WEBHOOK_URL = "https://discordapp.com/api/webhooks/1388286351685713920/eXJ6eokzOHzHkZ-_rrOeEgifnygTRx4wUJ_J7yDnjgzmlk0QUcYYF6y2MOzxKDQ4I7x7";
 
     public void sendMessage(String message) {
         try {
             if (message == null || message.trim().isEmpty()) {
-                System.out.println("⚠️ Mensaje vacío, no se envía a Discord");
+                System.out.println("Mensaje vacío, no se envía a Discord");
                 return;
             }
 
@@ -25,7 +25,6 @@ public class DsNotificacionService {
 
             String json = String.format("{\"content\":\"%s\"}", escapedMessage);
 
-            System.out.println("📦 JSON a enviar: " + json);
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(WEBHOOK_URL))
@@ -36,11 +35,11 @@ public class DsNotificacionService {
             HttpResponse<String> response = HttpClient.newHttpClient()
                     .send(request, HttpResponse.BodyHandlers.ofString());
 
-            System.out.println("✅ Status Discord: " + response.statusCode());
-            System.out.println("📝 Respuesta Discord: " + response.body());
+            System.out.println("Status Discord: " + response.statusCode());
+            System.out.println("Respuesta Discord: " + response.body());
 
         } catch (Exception e) {
-            System.out.println("❌ Error al enviar mensaje a Discord");
+            System.out.println("Error al enviar mensaje a Discord");
             e.printStackTrace();
         }
     }
