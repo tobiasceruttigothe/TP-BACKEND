@@ -12,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
 //import org.springframework.web.reactive.function.client.WebClient;
 //import reactor.core.publisher.Mono;
 
@@ -106,21 +108,21 @@ public class PruebaService {
         for (Prueba p : pruebasActivas) {
 
             if (p.getVehiculo().getId() == (prueba.getVehiculo().getId())) {
-                throw new IllegalArgumentException("El vehículo ya tiene una prueba activa");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El vehículo ya tiene una prueba activa");
             }
             if (p.getInteresado().getId() == (prueba.getInteresado().getId())) {
-                throw new IllegalArgumentException("El interesado ya tiene una prueba activa");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El interesado ya tiene una prueba activa");
             }
             if (p.getEmpleado().getLegajo() == (prueba.getEmpleado().getLegajo())) {
-                throw new IllegalArgumentException("El empleado ya tiene una prueba activa");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El empleado ya tiene una prueba activa");
             }
         }
 
             if (prueba.getInteresado().getFechaVencimiento().isBefore(LocalDate.now())) {
-                throw new IllegalArgumentException("El interesado no tiene licencia vigente");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El interesado no tiene licencia vigente");
             }
             if (prueba.getInteresado().getRestringido() == 1) {
-                throw new IllegalArgumentException("El interesado tiene restricciones en su licencia");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El interesado tiene restricciones en su licencia");
             }
 
         return prueba;
@@ -145,7 +147,6 @@ public class PruebaService {
         vehiculo = vehiculoService.getVehiculoById(pruebaCreateDTO.getId_vehiculo());
         Interesado interesado = new Interesado();
         interesado = interesadoService.getInteresadoById(pruebaCreateDTO.getId_interesado());
-        System.out.println(interesado.getFechaVencimiento());
         Empleado empleado = new Empleado();
         empleado = empleadoService.getEmpleadoById(pruebaCreateDTO.getId_empleado());
 
