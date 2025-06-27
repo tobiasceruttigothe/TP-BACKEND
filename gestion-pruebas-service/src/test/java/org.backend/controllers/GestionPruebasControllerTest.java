@@ -55,7 +55,7 @@ public class GestionPruebasControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(2));
     }
-/*
+
     @Test
     void testAddPrueba() throws Exception {
         PruebaCreateDTO dto = new PruebaCreateDTO(1L, 2L, 3L);
@@ -63,15 +63,30 @@ public class GestionPruebasControllerTest {
         prueba.setFechaHoraInicio(LocalDateTime.now());
         prueba.setFechaHoraFin(LocalDateTime.now());
 
-        when(pruebaService.savePrueba(any(PruebaCreateDTO.class))).thenReturn(prueba);
+        when(pruebaService.savePrueba(any(PruebaCreateDTO.class), anyString())).thenReturn(prueba);
 
         mockMvc.perform(post("/api/pruebas/crear")
+                        .header("Authorization", "Bearer mock-token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(dto)))
                 .andExpect(status().isOk());
     }
 
- */
+// testeando el controlador con un campo faltante en el DTO
+    @Test
+    void testAddPruebaConCampoFaltante() throws Exception {
+        // Dejar un campo como null (por ejemplo, campo2)
+        PruebaCreateDTO dtoInvalido = new PruebaCreateDTO(1L, null, 3L);
+
+        mockMvc.perform(post("/api/pruebas/crear")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(dtoInvalido)))
+                .andExpect(status().isBadRequest());
+    }
+
+
+
+
 
     @Test
     void testFinalizarPrueba_Success() throws Exception {
@@ -104,9 +119,10 @@ public class GestionPruebasControllerTest {
     void testAddPrueba_ErrorEnServicio() throws Exception {
         PruebaCreateDTO dto = new PruebaCreateDTO(1L, 2L, 3L);
 
-        doThrow(new RuntimeException("Error interno")).when(pruebaService).savePrueba(any());
+        doThrow(new RuntimeException("Error interno")).when(pruebaService).savePrueba(any(PruebaCreateDTO.class), anyString());
 
         mockMvc.perform(post("/api/pruebas/crear")
+                        .header("Authorization", "Bearer mock-token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(dto)))
                 .andExpect(status().isInternalServerError());

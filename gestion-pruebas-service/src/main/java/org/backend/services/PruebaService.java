@@ -9,6 +9,9 @@ import org.backend.repository.VehiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 //import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 //import org.springframework.web.reactive.function.client.WebClient;
@@ -70,14 +73,22 @@ public class PruebaService {
     }
 
 
-    public Prueba savePrueba(PruebaCreateDTO pruebaCreateDTO) {
+    public Prueba savePrueba(PruebaCreateDTO pruebaCreateDTO, String token) {
         Prueba pruebaAControlar = findAndMatch(pruebaCreateDTO);
         Prueba nuevaPrueba = controlesPrueba(pruebaAControlar);
         int id = nuevaPrueba.getVehiculo().getId();
 
         try {
-            restTemplate.getForObject(
-                    "http://localhost:8084/api/vehiculos/agencia/" + id, Void.class
+            HttpHeaders headers = new HttpHeaders();
+            headers.setBearerAuth(token);// asegúrate de que el token esté actualizado y válido
+
+            HttpEntity<Void> entity = new HttpEntity<>(headers);
+
+            restTemplate.exchange(
+                    "http://localhost:8080/api/vehiculos/agencia/" + id,
+                    HttpMethod.GET,
+                    entity,
+                    Void.class
             );
             System.out.println("seteando como primer posición la agencia");
         } catch (Exception e) {
@@ -104,12 +115,14 @@ public class PruebaService {
                 throw new IllegalArgumentException("El empleado ya tiene una prueba activa");
             }
         }
+
             if (prueba.getInteresado().getFechaVencimiento().isBefore(LocalDate.now())) {
                 throw new IllegalArgumentException("El interesado no tiene licencia vigente");
             }
             if (prueba.getInteresado().getRestringido() == 1) {
                 throw new IllegalArgumentException("El interesado tiene restricciones en su licencia");
             }
+
         return prueba;
     }
 

@@ -33,7 +33,7 @@ public class VehiculoControllerTest {
         PosicionDTOCreate posicion = new PosicionDTOCreate();
         posicion.setLatitud(-31.4167);
         posicion.setLongitud(-64.1833);
-        posicion.setIdVehiculo(1L);
+        posicion.setIdVehiculo(1);
 
         mockMvc.perform(post("/api/vehiculos")
                         .contentType(MediaType.APPLICATION_JSON)

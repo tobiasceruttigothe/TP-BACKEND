@@ -1,5 +1,9 @@
 package org.backend.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.backend.DTOS.ReporteDTO;
 import org.backend.controller.ReportesController;
 import org.backend.entities.Notificacion;
 import org.backend.entities.Prueba;
@@ -12,6 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -20,6 +25,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(ReportesController.class)
 public class ReportesControllerTest {
+
+    private final ObjectMapper objectMapper = new ObjectMapper()
+            .registerModule(new JavaTimeModule());
+
 
     @Autowired
     private MockMvc mockMvc;
@@ -116,6 +125,45 @@ public class ReportesControllerTest {
 
         verify(pruebaService).findByVehiculoId(vehiculoId);
     }
+
+    @Test
+    void testGetKilometrosPrueba_Exito() throws Exception {
+        int id = 1;
+        ReporteDTO dto = new ReporteDTO();
+        dto.setFechaInicio(LocalDateTime.of(2025, 6, 1, 10, 0, 1)); // 2025-06-01T10:00
+        System.out.println(dto.getFechaInicio());
+        dto.setFechaFin(LocalDateTime.of(2025, 6, 2, 18, 30, 1));   // 2025-06-02T18:30
+        //2025-06-01T00:00:00
+
+        double kilometrosEsperados = 87.3;
+
+        when(pruebaService.findByVehiculoIdAndFechaHoraInicioBetween(eq(id), any(), any()))
+                .thenReturn(kilometrosEsperados);
+
+        mockMvc.perform(get("/api/reportes/pruebas/km/{id}", id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper()
+                                .registerModule(new JavaTimeModule())
+                                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+                                .writeValueAsString(dto)))
+                .andExpect(status().isOk())
+                .andExpect(content().string(String.valueOf(kilometrosEsperados)));
+    }
+
+
+    @Test
+    void testGetKilometrosPrueba_ErrorDeValidacion() throws Exception {
+        int id = 1;
+        ReporteDTO dtoInvalido = new ReporteDTO(); // campos nulos
+
+        mockMvc.perform(get("/api/reportes/pruebas/km/{id}", id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(dtoInvalido)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$[0]").exists()); // Al menos un error
+    }
+
+
 
 
 }

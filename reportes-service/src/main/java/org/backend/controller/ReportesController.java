@@ -1,6 +1,7 @@
 package org.backend.controller;
 
 
+import jakarta.validation.Valid;
 import org.backend.DTOS.ReporteDTO;
 import org.backend.Repository.EmpleadoRepository;
 import org.backend.Repository.NotificacionesRepository;
@@ -13,10 +14,12 @@ import org.backend.services.NotificacionService;
 import org.backend.services.PruebaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/reportes")
@@ -42,7 +45,14 @@ public class ReportesController {
     }
 
     @GetMapping("/pruebas/km/{id}")
-    public ResponseEntity<Double> getKilometrosPrueba(@PathVariable int id, @RequestBody ReporteDTO reporteDTO) {
+    public ResponseEntity<?> getKilometrosPrueba(@PathVariable int id, @Valid @RequestBody ReporteDTO reporteDTO, BindingResult result) {
+        if (result.hasErrors()) {
+            List<String> errores = result.getFieldErrors()
+                    .stream()
+                    .map(e -> e.getField() + ": " + e.getDefaultMessage())
+                    .collect(Collectors.toList());
+            return ResponseEntity.badRequest().body(errores);
+        }
         double kmTotales = pruebaService.findByVehiculoIdAndFechaHoraInicioBetween(
                 id,
                 reporteDTO.getFechaInicio(),
